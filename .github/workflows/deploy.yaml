@@ -11,7 +11,7 @@ jobs:
         run: |
           aws s3api create-bucket \
             --bucket meteors-monitoring-deploy \
-            --create-bucket-configuration LocationConstraint=us-west-2 || true >> /dev/nul
+            --create-bucket-configuration LocationConstraint=us-west-2 || true >> /dev/null
 
           pip install -r requirements.txt -t handler
 
