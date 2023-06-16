@@ -4,7 +4,7 @@ Description: MeterosStatus
 Parameters:
   MeteorsDataBucketName:
     Type: String
-    Default: MeteorsDataBucket
+    Default: meterosdata2
 Resources: 
   MeterosStatus:
     Type: AWS::Serverless::Function
