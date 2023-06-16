@@ -13,11 +13,24 @@ Resources:
       ReservedConcurrentExecutions: 1
       Policies:
         - S3ReadPolicy:
-            BucketName: meterosdata
+            BucketName: !Ref MeteorsDataBucket
       Events:
         S3Event:
           Type: S3
           Properties:
-            Bucket: meterosdata 
+            Bucket: !Ref MeteorsDataBucket
             Events: s3:PutObject
-  
+  MeteorsDataBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties: 
+      BucketName: MeteorsDataBucket
+      BucketEncryption: 
+        ServerSideEncryptionConfiguration: 
+          - ServerSideEncryptionByDefault: 
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
