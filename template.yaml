@@ -1,6 +1,10 @@
 AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: MeterosStatus
+Parameters:
+  MeteorsDataBucketName:
+    Type: String
+    Default: MeteorsDataBucket
 Resources: 
   MeterosStatus:
     Type: AWS::Serverless::Function
@@ -13,7 +17,7 @@ Resources:
       ReservedConcurrentExecutions: 1
       Policies:
         - S3ReadPolicy:
-            BucketName: MeteorsDataBucket
+            BucketName: !Ref MeteorsDataBucketName
       Events:
         S3Event:
           Type: S3
@@ -24,7 +28,7 @@ Resources:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
     Properties: 
-      BucketName: MeteorsDataBucket
+      BucketName: !Ref MeteorsDataBucketName
       BucketEncryption: 
         ServerSideEncryptionConfiguration: 
           - ServerSideEncryptionByDefault: 
