@@ -13,7 +13,7 @@ Resources:
       ReservedConcurrentExecutions: 1
       Policies:
         - S3ReadPolicy:
-            BucketName: !Ref MeteorsDataBucket
+            BucketName: MeteorsDataBucket
       Events:
         S3Event:
           Type: S3
