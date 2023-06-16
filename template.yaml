@@ -23,7 +23,7 @@ Resources:
           Type: S3
           Properties:
             Bucket: !Ref MeteorsDataBucket
-            Events: s3:PutObject:*
+            Events: s3:ObjectCreated:*
   MeteorsDataBucket:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
