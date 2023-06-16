@@ -6,7 +6,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: MeteorsStatus.lambda_handler
-      CodeUri: lambda
+      CodeUri: handler
       Runtime: python3.10
       MemorySize: 256
       Timeout: 60

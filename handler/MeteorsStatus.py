@@ -50,9 +50,6 @@ def lambda_handler(event, context):
                     "name": objects['name'],
                     "dangerous": objects['is_potentially_hazardous_asteroid'],
                 })
-                if objects["is_potentially_hazardous_asteroid"]:
-                    check_hazard_status(objects["name"], objects[""], objects[""])
-#update the close approach data and fartest check
 
 
 
