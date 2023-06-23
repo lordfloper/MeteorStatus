@@ -1,12 +1,12 @@
 AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: MeterosStatus
+Description: MeteorsStatus
 Parameters:
   MeteorsDataBucketName:
     Type: String
-    Default: meterosdata2
+    Default: meteorsdata
 Resources: 
-  MeterosStatus:
+  MeteorsStatus:
     Type: AWS::Serverless::Function
     Properties:
       Handler: MeteorsStatus.lambda_handler
