@@ -39,9 +39,9 @@ Resources:
         IgnorePublicAcls: True
         RestrictPublicBuckets: True
 Outputs:
-  MeteorsDataBucketName:
+  MeteorsDataBucket:
     Description: ''
-    Value: !Ref MeteorsDataBucketName
+    Value: !Ref MeteorsDataBucket
     Export:
       Name: !Sub MeteorsDataBucket
   
