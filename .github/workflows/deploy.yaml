@@ -15,10 +15,10 @@ jobs:
 
           pip install -r requirements.txt -t handler
 
-          sam deploy --stack-name meterosdata  \
+          sam deploy --stack-name meteorstatus  \
             --no-confirm-changeset \
             --s3-bucket meteors-monitoring-deploy \
-            --s3-prefix meteorsstatus \
+            --s3-prefix meteorstatus \
             --capabilities CAPABILITY_IAM \
             --force-upload \
             --no-fail-on-empty-changeset \
