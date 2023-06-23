@@ -1,5 +1,5 @@
 name: Deploy MeterosStatus
-run-name: ${{ github.actor }} deploying meteros status
+run-name: ${{ github.actor }} deploying meteor status
 on: [push]
 jobs:
   deploy:
