@@ -38,3 +38,10 @@ Resources:
         BlockPublicPolicy: True
         IgnorePublicAcls: True
         RestrictPublicBuckets: True
+Outputs:
+  MeteorsDataBucketName:
+    Description: ''
+    Value: !Ref MeteorsDataBucketName
+    Export:
+      Name: !Sub MeteorsDataBucket
+  
