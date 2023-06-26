@@ -20,7 +20,7 @@ def check_hazard_status(name, speed, distance):
 
     # print(response['Item'])
 
-    if MAX_DISTANCE_KILOMTERS > distance and MAX_SPEED_KILOMETRS_PER_H > speed:
+    if distance > MAX_DISTANCE_KILOMTERS and speed > MAX_SPEED_KILOMETRS_PER_H:
         sns.publish(
             TopicArn = SNS_TOPIC_ARN,
             Subject = "Hazard! Warning!",
