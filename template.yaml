@@ -5,6 +5,9 @@ Parameters:
   MeteorsDataBucketName:
     Type: String
     Default: meteorsdata
+  NotificationEmail:
+    Type: String
+    Default: adrianfloperprogramming@gmail.com
 Resources: 
   MeteorsStatus:
     Type: AWS::Serverless::Function
@@ -15,6 +18,9 @@ Resources:
       MemorySize: 256
       Timeout: 60
       ReservedConcurrentExecutions: 1
+      Environment:
+        Variables:
+          SNS_TOPIC_ARN: !Ref MeteorStatusNotification
       Policies:
         - S3ReadPolicy:
             BucketName: !Ref MeteorsDataBucketName
@@ -38,6 +44,13 @@ Resources:
         BlockPublicPolicy: True
         IgnorePublicAcls: True
         RestrictPublicBuckets: True
+  MeteorStatusNotification:
+    Type: AWS::SNS::Topic
+    Properties:
+      Subscription:
+        - Endpoint: !Ref NotificationEmail
+          Protocol: email
+      TopicName: MeteorStatusNotification
 Outputs:
   MeteorsDataBucket:
     Description: ''
