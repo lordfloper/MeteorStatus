@@ -24,7 +24,7 @@ def check_hazard_status(name, speed, distance):
         sns.publish(
             TopicArn = SNS_TOPIC_ARN,
             Subject = "Hazard! Warning!",
-            Message = f"Dangerous, dangerous asteroid {name}. Distance {distance} kilometers. Speed {speed} km/h."
+            Message = f"Dangerous, dangerous asteroid {name}. Distance {distance}. Speed {speed}."
         )
 
 def lambda_handler(event, context):
