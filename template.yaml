@@ -25,7 +25,7 @@ Resources:
         - S3ReadPolicy:
             BucketName: !Ref MeteorsDataBucketName
         - SNSPublishMessagePolicy:
-            TopicName: !GettAtt MeteorStatusNotification.TopicName
+            TopicName: !GetAtt MeteorStatusNotification.TopicName
       Events:
         S3Event:
           Type: S3
