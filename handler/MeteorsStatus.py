@@ -55,8 +55,8 @@ def lambda_handler(event, context):
                 if objects['is_potentially_hazardous_asteroid']:
                     check_hazard_status(
                         objects['name'],
-                        objects['close_approach_data'][0]['relative_velocity']['kilometers_per_second'],
-                        objects['close_approach_data'][0]['miss_distance']['kilometers']
+                        int(objects['close_approach_data'][0]['relative_velocity']['kilometers_per_second']),
+                        int(objects['close_approach_data'][0]['miss_distance']['kilometers'])
                     )
 
 
