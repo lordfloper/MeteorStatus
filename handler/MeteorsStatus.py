@@ -4,8 +4,8 @@ import os
 import boto3 
 
 TABLENAME = "Potentially_hazardous_asteroid",
-MAX_DISTANCE_CHANGE = 10
-MAX_SPEED_CHANGE = 10
+MAX_DISTANCE_KILOMTERS = 10 #44231800
+MAX_SPEED_KILOMETRS_PER_H = 10 #14
 
 SNS_TOPIC_ARN = os.getenv("SNS_TOPIC_ARN")
 
@@ -20,11 +20,12 @@ def check_hazard_status(name, speed, distance):
 
     # print(response['Item'])
 
-    sns.publish(
-        TopicArn = SNS_TOPIC_ARN,
-        Subject = "Hazard! Warning!",
-        Message = f"Dangerous, dangerous asteroid {name}. Distance {distance}. Speed {speed}."
-    )
+    if MAX_DISTANCE_KILOMTERS > distance and MAX_SPEED_KILOMETRS_PER_H > speed:
+        sns.publish(
+            TopicArn = SNS_TOPIC_ARN,
+            Subject = "Hazard! Warning!",
+            Message = f"Dangerous, dangerous asteroid {name}. Distance {distance}. Speed {speed}."
+        )
 
 def lambda_handler(event, context):
     # TODO implement
@@ -33,8 +34,7 @@ def lambda_handler(event, context):
 
     for record in event["Records"]:
         data = {}
-        asteroid_status = []
-    
+
         bucket = record["s3"]["bucket"]["name"]
         key = urllib.parse.unquote_plus(record["s3"]["object"]["key"], encoding="utf-8")
 
@@ -52,10 +52,12 @@ def lambda_handler(event, context):
                     Dangerous: {objects['is_potentially_hazardous_asteroid']}
                     Size: {objects['estimated_diameter']['meters']['estimated_diameter_max']}
                 """)
-                asteroid_status.append({
-                    "name": objects['name'],
-                    "dangerous": objects['is_potentially_hazardous_asteroid'],
-                })
+                if objects['is_potentially_hazardous_asteroid']:
+                    check_hazard_status(
+                        objects['name'],
+                        objects['close_approach_data']['relative_velocity']['kilometers_per_second'],
+                        objects['close_approach_data']['miss_distance']['kilometers']
+                    )
 
 
 
