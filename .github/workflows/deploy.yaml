@@ -7,6 +7,10 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v3
+      - name: "Test code"
+        run: |
+          pip install tox
+          tox -c tests/tox.ini
       - name: "Deploy code"
         run: |
           aws s3api create-bucket \

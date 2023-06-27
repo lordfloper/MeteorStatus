@@ -1,13 +1,14 @@
 import json
 import urllib.parse
 import os
-import boto3 
+import boto3
 
 TABLENAME = "Potentially_hazardous_asteroid",
-MAX_DISTANCE_KILOMTERS = 10 #44231800
-MAX_SPEED_KILOMETRS_PER_H = 10 #14
+MAX_DISTANCE_KILOMTERS = 10
+MAX_SPEED_KILOMETRS_PER_H = 10
 
 SNS_TOPIC_ARN = os.getenv("SNS_TOPIC_ARN")
+
 
 def check_hazard_status(name, speed, distance):
     # dynamodb = boto3.client("dynamodb")
@@ -22,10 +23,11 @@ def check_hazard_status(name, speed, distance):
 
     if distance > MAX_DISTANCE_KILOMTERS and speed > MAX_SPEED_KILOMETRS_PER_H:
         sns.publish(
-            TopicArn = SNS_TOPIC_ARN,
-            Subject = "Hazard! Warning!",
-            Message = f"Dangerous, dangerous asteroid {name}. Distance {distance}. Speed {speed}."
+            TopicArn=SNS_TOPIC_ARN,
+            Subject="Hazard! Warning!",
+            Message=f"Dangerous, dangerous asteroid {name}. Distance {distance}. Speed {speed}."
         )
+
 
 def lambda_handler(event, context):
     # TODO implement
@@ -41,10 +43,10 @@ def lambda_handler(event, context):
         data = json.loads(
             s3.get_object(
                 Bucket=bucket,
-                Key=key)
-            ["Body"].read()
+                Key=key
+            )["Body"].read()
         )
-                    
+
         for date in data.values():
             for objects in date:
                 print(f"""
@@ -58,6 +60,3 @@ def lambda_handler(event, context):
                         float(objects['close_approach_data'][0]['relative_velocity']['kilometers_per_second']),
                         float(objects['close_approach_data'][0]['miss_distance']['kilometers'])
                     )
-
-
-
